@@ -46,8 +46,9 @@ class BoschEntity:
 
         device_registry = dr.async_get(self.hass)
 
-        gateway_device = device_registry.async_get_device(
-            identifiers={(DOMAIN, self._uuid)}
+        gateway_device = device_registry.async_get_device_by_identifier(
+            self.hass.config_entries.async_entries(DOMAIN)[0].entry_id,
+            (DOMAIN, self._uuid),
         )
         
         return DeviceInfo(
@@ -58,9 +59,7 @@ class BoschEntity:
             sw_version=self._gateway.firmware,
             hw_version=self._uuid,
             via_device_id=gateway_device.id if gateway_device else None,
-            
         )
-
 
 class BoschClimateWaterEntity(BoschEntity):
     """Bosch climate and water entities base class."""
