@@ -47,8 +47,6 @@ class BoschEntity:
         gateway_device = device_registry.async_get_device_by_identifier(
             (DOMAIN, self._uuid)
         )
-
-
         
         return DeviceInfo(
             identifiers=self._domain_identifier,
