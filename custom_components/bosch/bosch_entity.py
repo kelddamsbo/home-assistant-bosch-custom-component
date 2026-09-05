@@ -43,10 +43,6 @@ class BoschEntity:
     @property
     def device_info(self) -> DeviceInfo:
         """Get attributes about the device."""
-        device_registry = dr.async_get(self.hass)
-        gateway_device = device_registry.async_get_device_by_identifier(
-            (DOMAIN, self._uuid)
-        )
         
         return DeviceInfo(
             identifiers=self._domain_identifier,
@@ -55,7 +51,6 @@ class BoschEntity:
             name=self.device_name,
             sw_version=self._gateway.firmware,
             hw_version=self._uuid,
-            via_device_id=gateway_device.id if gateway_device else None,
         )
 
 
